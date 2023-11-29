@@ -1,0 +1,28 @@
+namespace: spacecraft-game
+
+spacecraft-game-web-server:
+  defines: runnable
+  metadata:
+    name: spacecraft-game-web-server
+    description: Serves the static files of the Amazing Spacecraft game
+    icon: https://emojiapi.dev/api/v1/robot.svg
+  containers:
+    spacecraft-game-web-server:
+      image: env-3066.registry.local/spacecraft-game-web-server:master-b65a771
+      build: .
+      dockerfile: Dockerfile.spacecraft-game-web-server
+  services:
+    http:
+      description: Serves the static files of the Amazing Spacecraft game
+      container: spacecraft-game-web-server
+      port: 80
+      host-port: 80
+      publish: true
+      protocol: tcp
+  connections: {}
+  variables: {}
+
+stack:
+  defines: group
+  members:
+    - spacecraft-game/spacecraft-game-web-server
