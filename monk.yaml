@@ -1,0 +1,35 @@
+namespace: spacecraft-game
+
+amazing-spacecraft:
+  defines: runnable
+  metadata:
+    name: amazing-spacecraft
+    description: A standalone Vanilla JS game that can be served statically.
+    icon: https://emojiapi.dev/api/v1/robot.svg
+  containers:
+    amazing-spacecraft:
+      image: env-2139.registry.local/amazing-spacecraft:master-b65a771
+      build: .
+      dockerfile: Dockerfile.amazing-spacecraft
+  services:
+    http:
+      description: HTTP traffic
+      container: amazing-spacecraft
+      port: 80
+      host-port: 80
+      publish: true
+      protocol: tcp
+    https:
+      description: HTTPS traffic
+      container: amazing-spacecraft
+      port: 443
+      host-port: 443
+      publish: true
+      protocol: tcp
+  connections: {}
+  variables: {}
+
+stack:
+  defines: group
+  members:
+    - spacecraft-game/amazing-spacecraft
